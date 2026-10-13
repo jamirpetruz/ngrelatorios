@@ -1,0 +1,1 @@
+pm2 start npm --name ngrelatorios -- start -- -H 192.168.1.189 -p 6769
