@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Package,
-  Users,
-  ClipboardList,
-  Settings,
+  DollarSign,
   Boxes,
 } from "lucide-react";
 
@@ -19,12 +17,9 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { label: "Dashboard", href: "/", icon: LayoutDashboard },
-  { label: "Produtos", href: "/produtos", icon: Package },
-  { label: "Colaboradores", href: "/colaboradores", icon: Users },
-  { label: "Apontamentos", href: "/apontamentos", icon: ClipboardList },
-  { label: "Empacotamento", href: "/empacotamento", icon: Boxes },
-  { label: "Configurações", href: "/configuracoes", icon: Settings },
+  { label: "Adiantamentos", href: "/relatorios/adiantamentos", icon: DollarSign },
+  { label: "Verbas Cestas Básicas", href: "/relatorios/cestas-basicas", icon: Package },
+  { label: "Verbas Cestas Básicas Novo", href: "/relatorios/cestas-basicas-novo", icon: Package }
 ];
 
 export default function Sidebar({
@@ -45,12 +40,12 @@ export default function Sidebar({
       {/* Logo */}
       <div className="flex h-16 items-center gap-3 px-5">
         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
-          <Boxes size={21} />
+          <img src="/petruz-logo.png" alt="" height="25" width="25" />
         </div>
 
         {!collapsed && (
           <span className="truncate text-lg font-bold light:text-slate-800 dark:text-slate-300">
-            Meu Sistema
+            NG RELATÓRIOS
           </span>
         )}
       </div>

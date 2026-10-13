@@ -39,6 +39,5 @@ export const config = {
   matcher: [
     "/relatorios/:path*",
     "/adm/:path*",
-    "/teste/:path*",
 ],
 }

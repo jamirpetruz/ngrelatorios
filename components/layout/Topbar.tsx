@@ -5,7 +5,7 @@ import {
     Menu,
     PanelLeftClose,
     PanelLeftOpen,
-    Bell,
+    LogOut,
     UserCircle,
     Sun,
     Moon,
@@ -41,7 +41,7 @@ export default function Topbar({
 
     const isDark = resolvedTheme === "dark";
     return (
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between bg-slate-200 dark:bg-slate-900 px-4 sm:px-6">
+        <header className="sticky top-0 z-30 flex h-[64px] items-center justify-between bg-slate-200 dark:bg-slate-900 px-4 sm:px-6">
             <div className="flex items-center gap-3">
                 {/* Botão para desktop */}
                 <button
@@ -69,7 +69,7 @@ export default function Topbar({
                 </button>
 
                 <h1 className="text-base font-semibold light:text-slate-800 dark:text-slate-300 sm:text-lg">
-                    Painel administrativo
+                    
                 </h1>
             </div>
 
@@ -113,6 +113,9 @@ export default function Topbar({
                             Usuário do sistema
                         </p>
                     </div>
+                    <a href="/api/auth/logout" className="ml-2 rounded-lg p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800">
+                        <LogOut size={20} className="text-slate-500" />
+                    </a>
                 </div>
             </div>
         </header>

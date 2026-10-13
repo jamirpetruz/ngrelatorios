@@ -34,7 +34,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
           onToggleMobile={() => setMobileOpen((prev) => !prev)}
         />
 
-        <main className="p-4 sm:p-6 lg:p-8 dark:bg-slate-800 light:bg-slate-100 ">
+        <main className="p-4 dark:bg-slate-800 light:bg-slate-100 h-[calc(100vh-64px)]">
           {children}
         </main>
       </div>

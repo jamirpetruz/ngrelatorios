@@ -1,3 +1,44 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* Scrollbar global — discreta e moderna */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c5cc transparent;
+}
+
+/* Chrome, Edge e Safari */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c1c5cc;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #8b929e;
+}
+
+/* Tema escuro */
+.dark * {
+  scrollbar-color: #4b5563 transparent;
+}
+
+.dark *::-webkit-scrollbar-thumb {
+  background-color: #4b5563;
+}
+
+.dark *::-webkit-scrollbar-thumb:hover {
+  background-color: #6b7280;
+}

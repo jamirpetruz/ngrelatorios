@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { SignJWT } from "jose";
 import { findUserByUsername } from "@/service/usuarios";
 import bcrypt from "bcrypt";
+import { use } from "react";
 
 export async function POST(req: NextRequest) {
     try {
@@ -59,6 +60,16 @@ export async function POST(req: NextRequest) {
         }
 
         const secret = new TextEncoder().encode(jwtSecret);
+
+        if(!userFound.ativo){
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Usuário inativo"
+                },
+                { status: 401 }
+            );
+        }
 
         const token = await new SignJWT({
             id: userFound.userId,
