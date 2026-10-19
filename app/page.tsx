@@ -34,7 +34,7 @@ export default function LoginPage() {
       const data = await response.json();
       if (data.success) {
         localStorage.setItem('username', data.username)
-        router.push("/relatorios");
+        router.push("/relatorios/adiantamentos");
       }
     } catch (error) {
       console.error(error);
@@ -48,7 +48,7 @@ export default function LoginPage() {
     <main className="flex min-h-screen items-center justify-center bg-slate-100">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
         <h1 className="mb-2 text-center text-3xl font-bold text-gray-800">
-          NG RELATÓRIOS
+          Petruz Consultas
         </h1>
 
         <p className="mb-8 text-center text-gray-500">
