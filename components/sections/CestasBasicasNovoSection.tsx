@@ -104,14 +104,14 @@ export default function CestasBasicasNovoSection() {
     }
     const inputClass = 'text-sm border h-8 border-1 p-1 border-gray-500 rounded text-gray-800 dark:text-gray-300 dark:border-gray-500 dark:bg-gray-700 dark:placeholder:text-gray-400 outline-none min-w-[180px]'
     return (
-        <section className="w-full rounded-lg">
+        <section className="w-full h-full min-h-0 flex flex-col rounded-lg overflow-hidden">
             {loading ? <Loading/> : null}
             {/* Cabeçalho */}
             <div className="flex items-center justify-between border-b pb-2">
-                <div className="w-full">
+                <div className="w-full p-4">
                     <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
                         Relatório Verbas Cestas Básicas - Novo
-                        <span className="ml-2 rounded-full bg-green-100 px-3 py-1 text-sm text-gray-600">
+                        <span className="ml-2 rounded-full bg-green-300 px-3 py-1 text-sm text-gray-800">
                             {dados.length} registro{dados.length !== 1 ? "s" : ""}
                         </span>
                     </h2>
@@ -151,7 +151,7 @@ export default function CestasBasicasNovoSection() {
             </div>
 
             {/* Tabela */}
-            <div className="w-full overflow-x-auto max-h-[65vh] overflow-y-auto">
+            <div className="flex-1 min-h-0 w-full overflow-auto">
                 <table className="w-full min-w-[1400px] text-left text-sm">
                     <thead className="sticky top-0 z-10 border-b bg-gray-50 dark:bg-gray-700 text-xs uppercase text-gray-600">
                         <tr className="dark:text-gray-300">
@@ -198,7 +198,7 @@ export default function CestasBasicasNovoSection() {
                         </tr>
                     </thead>
 
-                    <tbody className="divide-y">
+                    <tbody className="">
                         {dados.length === 0 ? (
                             <tr>
                                 <td

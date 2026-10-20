@@ -45,8 +45,9 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-100">
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+    <main className="flex min-h-screen items-center justify-center bg-slate-800">
+      <div className="flex flex-col items-center w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+        <img src="petruz-logo2.png" alt="" height={60} width={60}/>
         <h1 className="mb-2 text-center text-3xl font-bold text-gray-800">
           Petruz Consultas
         </h1>
@@ -55,7 +56,7 @@ export default function LoginPage() {
           Acesse sua conta
         </p>
 
-        <form onSubmit={handleLogin} className="space-y-5">
+        <form onSubmit={handleLogin} className="space-y-5 w-full">
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Usuário

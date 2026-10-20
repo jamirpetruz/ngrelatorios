@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
@@ -23,6 +22,11 @@ const formularioInicial: UsuarioForm = {
   ativo: 1,
   role: "user",
 };
+
+// Classes compartilhadas (inputs/selects e labels)
+const inputClass =
+  "w-full rounded-md border border-slate-300 bg-white px-3 py-1.5 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+const labelClass = "mb-1 block text-xs font-medium text-slate-600";
 
 export default function UsuariosPage() {
   const [usuarios, setUsuarios] = useState<IUser[]>([]);
@@ -151,17 +155,18 @@ export default function UsuariosPage() {
     );
   });
 
+  const totalAtivos = usuarios.filter((u) => u.ativo).length;
+  const totalInativos = usuarios.length - totalAtivos;
+
   return (
     <AppLayout>
-      <main className="min-h-screen bg-slate-50 p-4 text-slate-800 md:p-8">
+      <main className="min-h-screen bg-slate-50 p-3 text-slate-800 md:p-5">
         <div className="mx-auto max-w-7xl">
           {/* Cabeçalho */}
-          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <div>
-              <h1 className="text-2xl font-bold tracking-tight">
-                Usuários
-              </h1>
-              <p className="mt-1 text-sm text-slate-500">
+              <h1 className="text-lg font-bold tracking-tight">Usuários</h1>
+              <p className="text-xs text-slate-500">
                 Gerencie os usuários e suas permissões de acesso.
               </p>
             </div>
@@ -169,51 +174,45 @@ export default function UsuariosPage() {
             <button
               type="button"
               onClick={abrirCriacao}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+              className="inline-flex items-center justify-center gap-1.5 rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
-              <span className="text-lg">+</span>
+              <span className="text-base leading-none">+</span>
               Novo usuário
             </button>
           </div>
 
           {/* Indicadores */}
-          <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-xl border border-slate-200 bg-white p-5">
-              <p className="text-sm text-slate-500">Total de usuários</p>
-              <p className="mt-2 text-3xl font-bold">{usuarios.length}</p>
+          <div className="mb-4 grid grid-cols-3 gap-3">
+            <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
+              <p className="text-xs text-slate-500">Total</p>
+              <p className="text-lg font-bold">{usuarios.length}</p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-white p-5">
-              <p className="text-sm text-slate-500">Usuários ativos</p>
-              <p className="mt-2 text-3xl font-bold text-emerald-600">
-                {usuarios.filter((u) => u.ativo === 1).length}
-              </p>
+            <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
+              <p className="text-xs text-slate-500">Ativos</p>
+              <p className="text-lg font-bold text-emerald-600">{totalAtivos}</p>
             </div>
 
-            <div className="rounded-xl border border-slate-200 bg-white p-5">
-              <p className="text-sm text-slate-500">Usuários inativos</p>
-              <p className="mt-2 text-3xl font-bold text-slate-500">
-                {usuarios.filter((u) => u.ativo !== 1).length}
-              </p>
+            <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
+              <p className="text-xs text-slate-500">Inativos</p>
+              <p className="text-lg font-bold text-slate-500">{totalInativos}</p>
             </div>
           </div>
 
           {/* Listagem */}
-          <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
-            <div className="border-b border-slate-200 p-4">
-              <div className="relative max-w-md">
-                <input
-                  type="search"
-                  value={busca}
-                  onChange={(e) => setBusca(e.target.value)}
-                  placeholder="Buscar por nome, usuário ou e-mail..."
-                  className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
-                />
-              </div>
+          <section className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+            <div className="border-b border-slate-200 p-2.5">
+              <input
+                type="search"
+                value={busca}
+                onChange={(e) => setBusca(e.target.value)}
+                placeholder="Buscar por nome, usuário ou e-mail..."
+                className={`${inputClass} max-w-sm`}
+              />
             </div>
 
             {erro && !modalAberto && (
-              <div className="m-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+              <div className="mx-2.5 mt-2.5 rounded-md bg-red-50 px-3 py-2 text-sm text-red-700">
                 {erro}
                 <button
                   type="button"
@@ -227,32 +226,30 @@ export default function UsuariosPage() {
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+                <thead className="bg-slate-50 text-[11px] uppercase tracking-wide text-slate-500">
                   <tr>
-                    <th className="px-6 py-4 font-semibold">Usuário</th>
-                    <th className="px-6 py-4 font-semibold">E-mail</th>
-                    <th className="px-6 py-4 font-semibold">Perfil</th>
-                    <th className="px-6 py-4 font-semibold">Status</th>
-                    <th className="px-6 py-4 text-right font-semibold">
-                      Ações
-                    </th>
+                    <th className="px-4 py-2 font-semibold">Usuário</th>
+                    <th className="px-4 py-2 font-semibold">E-mail</th>
+                    <th className="px-4 py-2 font-semibold">Perfil</th>
+                    <th className="px-4 py-2 font-semibold">Status</th>
+                    <th className="px-4 py-2 text-right font-semibold">Ações</th>
                   </tr>
                 </thead>
 
                 <tbody className="divide-y divide-slate-100">
                   {carregando ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center text-slate-500">
+                      <td colSpan={5} className="px-4 py-8 text-center text-slate-500">
                         Carregando usuários...
                       </td>
                     </tr>
                   ) : usuariosFiltrados.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="px-6 py-12 text-center">
+                      <td colSpan={5} className="px-4 py-8 text-center">
                         <p className="font-medium text-slate-700">
                           Nenhum usuário encontrado
                         </p>
-                        <p className="mt-1 text-slate-500">
+                        <p className="text-xs text-slate-500">
                           Tente outra busca ou cadastre um novo usuário.
                         </p>
                       </td>
@@ -263,35 +260,35 @@ export default function UsuariosPage() {
                         key={usuario.userId}
                         className="transition hover:bg-slate-50"
                       >
-                        <td className="px-6 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100 font-bold text-blue-700">
+                        <td className="px-4 py-2">
+                          <div className="flex items-center gap-2.5">
+                            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">
                               {usuario.name.charAt(0).toUpperCase()}
                             </div>
-                            <div>
-                              <p className="font-semibold text-slate-800">
+                            <div className="leading-tight">
+                              <p className="font-medium text-slate-800">
                                 {usuario.name}
                               </p>
-                              <p className="mt-1 text-xs text-slate-500">
+                              <p className="text-xs text-slate-500">
                                 @{usuario.username}
                               </p>
                             </div>
                           </div>
                         </td>
 
-                        <td className="whitespace-nowrap px-6 py-4 text-slate-600">
+                        <td className="whitespace-nowrap px-4 py-2 text-slate-600">
                           {usuario.email}
                         </td>
 
-                        <td className="px-6 py-4">
-                          <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
+                        <td className="px-4 py-2">
+                          <span className="rounded bg-slate-100 px-1.5 py-0.5 text-xs font-medium text-slate-700">
                             {usuario.role}
                           </span>
                         </td>
 
-                        <td className="px-6 py-4">
+                        <td className="px-4 py-2">
                           <span
-                            className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-medium ${usuario.ativo
+                            className={`inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ${usuario.ativo
                                 ? "bg-emerald-50 text-emerald-700"
                                 : "bg-slate-100 text-slate-500"
                               }`}
@@ -302,15 +299,15 @@ export default function UsuariosPage() {
                                   : "bg-slate-400"
                                 }`}
                             />
-                            {usuario ? "Ativo" : "Inativo"}
+                            {usuario.ativo ? "Ativo" : "Inativo"}
                           </span>
                         </td>
 
-                        <td className="px-6 py-4 text-right">
+                        <td className="px-4 py-2 text-right">
                           <button
                             type="button"
                             onClick={() => abrirEdicao(usuario)}
-                            className="rounded-lg border border-slate-200 px-3 py-2 font-medium text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+                            className="rounded-md border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
                           >
                             Editar
                           </button>
@@ -323,7 +320,7 @@ export default function UsuariosPage() {
             </div>
 
             {!carregando && usuariosFiltrados.length > 0 && (
-              <div className="border-t border-slate-200 px-6 py-4 text-xs text-slate-500">
+              <div className="border-t border-slate-200 px-4 py-2 text-xs text-slate-500">
                 Exibindo {usuariosFiltrados.length} de {usuarios.length} usuários
               </div>
             )}
@@ -342,17 +339,17 @@ export default function UsuariosPage() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-titulo"
-              className="my-auto w-full max-w-2xl rounded-2xl bg-white shadow-2xl"
+              className="my-auto w-full max-w-lg rounded-xl bg-white shadow-2xl"
             >
-              <div className="flex items-start justify-between border-b border-slate-200 p-6">
+              <div className="flex items-start justify-between border-b border-slate-200 px-5 py-3">
                 <div>
                   <h2
                     id="modal-titulo"
-                    className="text-xl font-bold text-slate-800"
+                    className="text-base font-bold text-slate-800"
                   >
                     {usuarioEditando ? "Editar usuário" : "Novo usuário"}
                   </h2>
-                  <p className="mt-1 text-sm text-slate-500">
+                  <p className="text-xs text-slate-500">
                     {usuarioEditando
                       ? "Atualize os dados e as permissões do usuário."
                       : "Preencha os dados para cadastrar um usuário."}
@@ -364,16 +361,16 @@ export default function UsuariosPage() {
                   onClick={fecharModal}
                   disabled={salvando}
                   aria-label="Fechar modal"
-                  className="rounded-lg px-3 py-1 text-2xl text-slate-400 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-50"
+                  className="rounded-md px-2 py-0.5 text-xl leading-none text-slate-400 hover:bg-slate-100 hover:text-slate-700 disabled:opacity-50"
                 >
                   ×
                 </button>
               </div>
 
               <form onSubmit={salvarUsuario}>
-                <div className="grid grid-cols-1 gap-5 p-6 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-3 px-5 py-4 sm:grid-cols-2">
                   <div className="sm:col-span-2">
-                    <label htmlFor="name" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="name" className={labelClass}>
                       Nome completo *
                     </label>
                     <input
@@ -383,12 +380,12 @@ export default function UsuariosPage() {
                       value={form.name}
                       onChange={(e) => atualizarCampo("name", e.target.value)}
                       placeholder="Nome do usuário"
-                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="username" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="username" className={labelClass}>
                       Nome de usuário *
                     </label>
                     <input
@@ -399,12 +396,12 @@ export default function UsuariosPage() {
                       value={form.username}
                       onChange={(e) => atualizarCampo("username", e.target.value)}
                       placeholder="Ex.: jamir"
-                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="email" className={labelClass}>
                       E-mail *
                     </label>
                     <input
@@ -416,12 +413,12 @@ export default function UsuariosPage() {
                       value={form.email}
                       onChange={(e) => atualizarCampo("email", e.target.value)}
                       placeholder="usuario@empresa.com"
-                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     />
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label htmlFor="password" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="password" className={labelClass}>
                       Senha {usuarioEditando ? "(opcional)" : "*"}
                     </label>
                     <input
@@ -429,9 +426,7 @@ export default function UsuariosPage() {
                       type="password"
                       required={!usuarioEditando}
                       minLength={8}
-                      autoComplete={
-                        usuarioEditando ? "new-password" : "new-password"
-                      }
+                      autoComplete="new-password"
                       value={form.password}
                       onChange={(e) => atualizarCampo("password", e.target.value)}
                       placeholder={
@@ -439,12 +434,12 @@ export default function UsuariosPage() {
                           ? "Deixe em branco para manter a senha atual"
                           : "Mínimo de 8 caracteres"
                       }
-                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="role" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="role" className={labelClass}>
                       Perfil de acesso *
                     </label>
                     <select
@@ -452,7 +447,7 @@ export default function UsuariosPage() {
                       required
                       value={form.role}
                       onChange={(e) => atualizarCampo("role", e.target.value)}
-                      className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     >
                       <option value="USER">Usuário</option>
                       <option value="ADMIN">Administrador</option>
@@ -460,7 +455,7 @@ export default function UsuariosPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="ativo" className="mb-2 block text-sm font-medium">
+                    <label htmlFor="ativo" className={labelClass}>
                       Status *
                     </label>
                     <select
@@ -469,7 +464,7 @@ export default function UsuariosPage() {
                       onChange={(e) =>
                         atualizarCampo("ativo", Number(e.target.value))
                       }
-                      className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+                      className={inputClass}
                     >
                       <option value="1">Ativo</option>
                       <option value="0">Inativo</option>
@@ -477,18 +472,18 @@ export default function UsuariosPage() {
                   </div>
 
                   {erro && (
-                    <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 sm:col-span-2">
+                    <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs text-red-700 sm:col-span-2">
                       {erro}
                     </div>
                   )}
                 </div>
 
-                <div className="flex flex-col-reverse gap-3 rounded-b-2xl border-t border-slate-200 bg-slate-50 p-6 sm:flex-row sm:justify-end">
+                <div className="flex flex-col-reverse gap-2 rounded-b-xl border-t border-slate-200 bg-slate-50 px-5 py-3 sm:flex-row sm:justify-end">
                   <button
                     type="button"
                     onClick={fecharModal}
                     disabled={salvando}
-                    className="rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-50"
+                    className="rounded-md border border-slate-300 bg-white px-4 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 disabled:opacity-50"
                   >
                     Cancelar
                   </button>
@@ -496,7 +491,7 @@ export default function UsuariosPage() {
                   <button
                     type="submit"
                     disabled={salvando}
-                    className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="rounded-md bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {salvando
                       ? "Salvando..."
