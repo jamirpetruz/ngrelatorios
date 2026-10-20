@@ -8,6 +8,7 @@ import { ICestaBasica } from "@/types/CestaBasica";
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { Sheet } from "lucide-react";
+import Loading from "../Loading";
 
 export interface CestasBasicasDTO {
     nome: string
@@ -24,6 +25,7 @@ export default function CestasBasicasSection() {
     const [dados, setDados] = useState<ICestaBasica[]>([])
     const [mes, setMes] = useState<string>('1')
     const [empresa, setEmpresa] = useState<string>('3487')
+    const [loading, setLoading] = useState<boolean>(false)
     const formatarData = (data?: Date) => {
         if (!data) return "-";
 
@@ -44,9 +46,11 @@ export default function CestasBasicasSection() {
             alert('Selecione a empresa e o mês para buscar as cestas básicas')
             return
         }
+        setLoading(true)
         const result = await findCestasBasicasAction(mes, empresa)
         console.log(result)
         setDados(result)
+        setLoading(false)
     }
     const getExcel = () => {
         let contrato = ''
@@ -105,6 +109,7 @@ export default function CestasBasicasSection() {
     const inputClass = 'text-sm border h-8 border-1 p-1 border-gray-500 rounded text-gray-800 dark:text-gray-300 dark:border-gray-500 dark:bg-gray-700 dark:placeholder:text-gray-400 outline-none min-w-[180px]'
     return (
         <section className="w-full rounded-lg">
+            {loading ? <Loading/> : null}
             {/* Cabeçalho */}
             <div className="flex items-center justify-between border-b pb-2">
                 <div className="w-full">
