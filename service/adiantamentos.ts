@@ -195,10 +195,17 @@ export async function findAdiantamentos(empresa: string, dataLimite: string): Pr
             T0.idowner,
             T4.nomepessoa;
         `;
-    const result = await pool
-        .request()
-        .input('empresa', empresa)
-        .input('dataLimite', dataLimite)
-        .query(sql)
-    return result.recordset as IAdiantamentoSalarial[]
+    try {
+        const result = await pool
+            .request()
+            .input('empresa', empresa)
+            .input('dataLimite', dataLimite)
+            .query(sql)
+        return result.recordset as IAdiantamentoSalarial[]
+    } catch (error) {
+        console.log(error)
+        return []
+    } finally {
+        await pool.close()
+    }
 }

@@ -12,10 +12,12 @@ export async function findUserByUsername(username: string): Promise<IUser | null
             .request()
             .input('username', username)
             .query(sql)
-        return result.recordset[0] as IUser
+        return result.recordset[0] as IUser ?? null
     } catch (error) {
         console.log(error)
         return null
+    } finally{
+      await pool.close()
     }
 }
 
@@ -34,10 +36,12 @@ export async function createUser(user: IUser): Promise<IUser | null>{
             .input('password', passwordHash)
             .input('role', user.role)
             .query(sql)
-        return result.recordset[0] as IUser
+        return result.recordset[0] as IUser ?? null
     } catch (error) {
         console.log(error)
         return null
+    } finally{
+      await pool.close()
     }
 }
 
@@ -47,10 +51,12 @@ export async function getAllUsers(): Promise<IUser[]> {
 
     try {
         const result = await pool.query(sql)
-        return result.recordset as IUser[]
+        return result.recordset as IUser[] 
     } catch (error) {
         console.log(error)
         return []
+    } finally{
+      await pool.close()
     }
 }
 
@@ -105,5 +111,7 @@ export async function updateUser(
   } catch (error) {
     console.error("Erro ao atualizar usuário:", error);
     return null;
+  } finally {
+    await pool.close()
   }
 }

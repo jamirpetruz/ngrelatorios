@@ -65,12 +65,20 @@ export async function findCestasBasicas(empresa: string, mes: string): Promise<I
         ORDER BY
             T4.nomepessoa;
         `;
-    const result = await pool
-        .request()
-        .input('empresa', empresa)
-        .input('mes_ano', mes)
-        .query(sql)
-    return result.recordset as ICestaBasica[]
+    try {
+        const result = await pool
+            .request()
+            .input('empresa', empresa)
+            .input('mes_ano', mes)
+            .query(sql)
+        return result.recordset as ICestaBasica[]
+    } catch (error) {
+        console.log(error)
+        return []
+    } finally {
+        await pool.close()
+    }
+
 }
 
 export async function findCestasBasicasNovo(empresa: string, mes: string): Promise<ICestaBasicaNovo[]> {
@@ -125,10 +133,19 @@ export async function findCestasBasicasNovo(empresa: string, mes: string): Promi
             LEFT  JOIN [NG]..[bpm_pessoa]              T8 ON T7.idpessoaprincipal = T8.idpessoa
         ORDER BY T4.nomepessoa;
         `;
-    const result = await pool
-        .request()
-        .input('empresa', empresa)
-        .input('mes_ano', mes)
-        .query(sql)
-    return result.recordset as ICestaBasicaNovo[]
+
+    try {
+        const result = await pool
+            .request()
+            .input('empresa', empresa)
+            .input('mes_ano', mes)
+            .query(sql)
+        return result.recordset as ICestaBasicaNovo[]
+    } catch (error) {
+        console.log(error)
+        return []
+    } finally {
+        await pool.close()
+    }
+
 }
