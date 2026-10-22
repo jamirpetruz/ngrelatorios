@@ -34,7 +34,7 @@ export default function LoginPage() {
       const data = await response.json();
       if (data.success) {
         localStorage.setItem('username', data.username)
-        router.push("/relatorios/adiantamentos");
+        router.push("/relatorios/rh/adiantamentos");
       }
     } catch (error) {
       console.error(error);

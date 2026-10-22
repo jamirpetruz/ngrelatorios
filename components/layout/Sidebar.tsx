@@ -8,6 +8,7 @@ import {
   Package,
   ChevronDown,
   Users,
+  Wallet,
 } from "lucide-react";
 
 interface SidebarProps {
@@ -19,18 +20,23 @@ interface SidebarProps {
 const menuItems = [
   {
     label: "Adiantamentos",
-    href: "/relatorios/adiantamentos",
-    icon: DollarSign,
+    href: "/relatorios/rh/adiantamentos",
+    icon: Wallet,
   },
   {
     label: "Verbas Cestas Básicas",
-    href: "/relatorios/cestas-basicas",
+    href: "/relatorios/rh/cestas-basicas",
     icon: Package,
   },
   {
     label: "Verbas Cestas Básicas Novo",
-    href: "/relatorios/cestas-basicas-novo",
+    href: "/relatorios/rh/cestas-basicas-novo",
     icon: Package,
+  },
+  {
+    label: "Valores por Centro de Custo",
+    href: "/relatorios/rh/centro-de-custo",
+    icon: DollarSign,
   },
 ];
 
@@ -124,10 +130,9 @@ export default function Sidebar({
                       flex min-h-10 items-center gap-3
                       rounded-lg px-3 py-2
                       transition-colors
-                      ${
-                        active
-                          ? "bg-blue-50 font-semibold text-blue-700 dark:bg-slate-800 dark:text-blue-400"
-                          : "text-slate-600 hover:bg-slate-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
+                      ${active
+                        ? "bg-blue-50 font-semibold text-blue-700 dark:bg-slate-800 dark:text-blue-400"
+                        : "text-slate-600 hover:bg-slate-200 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white"
                       }
                     `}
                   >

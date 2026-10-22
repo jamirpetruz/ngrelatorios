@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import { SignJWT } from "jose";
-import { findUserByUsername } from "@/service/usuarios";
+import { findUserByUsername } from "@/service/rh/usuarios";
 import bcrypt from "bcrypt";
 
 export async function POST(req: NextRequest) {

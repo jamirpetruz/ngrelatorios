@@ -1,6 +1,6 @@
 'use server'
 
-import { createUser, getAllUsers, updateUser } from "@/service/usuarios";
+import { createUser, getAllUsers, updateUser } from "@/service/rh/usuarios";
 import { IUser } from "@/types/User";
 
 export async function createUsuarioActions(user: IUser): Promise<IUser | null> {

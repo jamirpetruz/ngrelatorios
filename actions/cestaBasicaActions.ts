@@ -1,6 +1,6 @@
 'use server'
 
-import { findCestasBasicas, findCestasBasicasNovo } from "@/service/cestasBasicas";
+import { findCestasBasicas, findCestasBasicasNovo } from "@/service/rh/cestasBasicas";
 
 export async function findCestasBasicasAction(mes: string, empresa: string) {
     const result = await findCestasBasicas(empresa, mes)
