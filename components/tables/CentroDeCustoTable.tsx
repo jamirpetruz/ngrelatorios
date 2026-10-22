@@ -171,7 +171,7 @@ export function CentroDeCustoTable(props: CentroDeCustoTableProps) {
                                     .map((subItem, subIndex) => {
                                         if (props.detalhado) {
                                             return (
-                                                <tr className="" key={subIndex}>
+                                                <tr className="text-[9pt]" key={subIndex}>
                                                     <td className="whitespace-nowrap pl-2 dark:bg-gray-900 border-b border-gray-500">
                                                         {subItem.idverba}
                                                     </td>

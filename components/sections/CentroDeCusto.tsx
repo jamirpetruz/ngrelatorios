@@ -129,23 +129,6 @@ export default function CentroDeCustoSection() {
         setLoading(false)
     }
 
-    /*
-    const getExcel = () => {
-        const dadosDTO = dados.map((item) => ({
-            Empresa: item.Empresa,
-            Colaborador: item.Colaborador,
-            Tipo: item.descricaotipofatogeradorverba,
-            Subtipo: item.descricaosubtipofatogeradorverba,
-            dataInicio: item.dataInicio,
-            dataFim: item.dataFim,
-            Vezes: item.Vezes,
-            valorParcela: item.valorParcela,
-            valorTotal: item.valorTotal,
-            Saldo: item.Saldo,
-            Observacao: item.Observacao,
-        }));
-        exportarExcelAction(dadosDTO, 'Adiantamentos')
-    }*/
     const inputClass = 'text-sm border h-8 border-1 p-1 border-gray-500 rounded text-gray-800 dark:text-gray-300 dark:border-gray-500 dark:bg-gray-700 dark:placeholder:text-gray-400 outline-none min-w-[180px]'
     return (
         <section className="w-max min-w-[1400px] table-auto text-left text-sm">
@@ -155,9 +138,6 @@ export default function CentroDeCustoSection() {
                 <div className="w-full p-4">
                     <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">
                         Valores por centro de custo
-                        <span className="ml-2 rounded-full bg-green-300 px-3 py-1 text-sm text-gray-800">
-                            {dados.length} registro{dados.length !== 1 ? "s" : ""}
-                        </span>
                     </h2>
 
                     <p className="text-sm text-gray-500">
