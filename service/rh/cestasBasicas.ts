@@ -28,7 +28,7 @@ export async function findCestasBasicas(empresa: string, mes: string): Promise<I
 
             T1.datainiciofolha,
             T1.datafimfolha,
-            T5.datanascimento AS dataNascimento,
+            CONVERT(VARCHAR(10), T5.datanascimento, 23) AS dataNascimento,
             T5.indsexo AS sexo,
             T0.idowner
 
@@ -111,7 +111,7 @@ export async function findCestasBasicasNovo(empresa: string, mes: string): Promi
             V.ValorDesconto,
             V.datainiciofolha,
             V.datafimfolha,
-            T5.datanascimento    AS dataNascimento,
+            CONVERT(VARCHAR(10), T5.datanascimento, 23) AS dataNascimento,
             T5.indsexo           AS sexo,
             V.idowner,
             T8.nomepessoa        AS mae,

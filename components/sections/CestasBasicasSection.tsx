@@ -218,7 +218,7 @@ export default function CestasBasicasSection() {
                                     </td>
 
                                     <td className="whitespace-nowrap px-4 py-2">
-                                        {item.dataNascimento ? new Date(item.dataNascimento).toLocaleDateString("pt-BR") : "-"}
+                                        {item.dataNascimento ? item.dataNascimento.split('-').reverse().join('/'): ''}
                                     </td>
 
                                     <td className="whitespace-nowrap px-4 py-2">
