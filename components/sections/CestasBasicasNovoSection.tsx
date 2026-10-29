@@ -80,7 +80,7 @@ export default function CestasBasicasNovoSection() {
                 "%",
                 item.nome,
                 item.cpf,
-                item.dataNascimento,
+                item.dataNascimento ? item.dataNascimento.split('-').reverse().join('/'): '',
                 item.sexo,
                 item.valor,
                 "FI",
